@@ -1,8 +1,29 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  root to: "flats#index"
+  # root to: "flats#index"
 
-  resources :restaurants
+  resources :restaurants do
+
+    resources :reviews, only: [:new, :create]
+
+    collection do
+      get :top
+      # get :lame
+      # post :upvote
+    end
+    # get "/restaurants/top", to: "restaurants#top", as: :top_restaurants
+
+    member do
+      get :chef
+    end
+    # get "/restaurants/:id/chef", to: "restaurants#chef", as: :restaurant_chef
+  end
+
+  resources :reviews, only: [:show, :edit, :update, :destroy]
+
+  # TOP RESTOS
+
+
   # resources :flats, only: [:new, :create, :index, :show]
 
   # get "/", to: ""
